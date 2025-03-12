@@ -8,6 +8,7 @@ DATA_FILE = "members.csv"
 GROUP_MEMBERS = [
     {"name": "Djofang Nkuingoua Danielle", "specialty": "IABD", "group": "2", "gender": "Female", "group_number": "21"},
     {"name":"Nchourupouo Mohamed", "speciality":"IABD","group":"2","gender":"Male","group_number":"22"},
+    {"name": "Ngoue David Roger","speciality": "IABD", "group":"2", "gender":"Malde", "groupe_member":"23"}
 ]
 
 # Function to save or update members in CSV
