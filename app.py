@@ -5,25 +5,34 @@ import os
 # CSV file path
 DATA_FILE = "members.csv"
 
-#Group members list 
 GROUP_MEMBERS = [
-    {"name": "Djofang Nkuingoua Danielle", "specialty": "IABD", "group": "2","gender":"Female", "group_number": "21"},
-   
+    {"name": "Djofang Nkuingoua Danielle", "specialty": "IABD", "group": "2", "gender": "Female", "group_number": "21"},
+
 ]
 
-def save_members_to_csv():
-    df = pd.DataFrame(GROUP_MEMBERS)
-    df.to_csv(DATA_FILE, index=False)
+# Function to save or update members in CSV
+def update_csv():
+    new_df = pd.DataFrame(GROUP_MEMBERS)
 
-if not os.path.exists(DATA_FILE):
-    save_members_to_csv()
+    if os.path.exists(DATA_FILE):
+        existing_df = pd.read_csv(DATA_FILE)
 
+        # Merging new members 
+        merged_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["name"], keep="last")
+        merged_df.to_csv(DATA_FILE, index=False)
+    else:
+        new_df.to_csv(DATA_FILE, index=False)
+
+# Update CSV when script runs
+update_csv()
+
+# Load members
 df = pd.read_csv(DATA_FILE)
 
 st.title("👨‍🎓 Group II Git/GitHub Members")
 
 st.sidebar.title("🔧 Admin Panel")
-st.sidebar.write("📌 This list is stored in `members.csv`.")
+st.sidebar.write("📌 The list updates automatically when the script runs.")
 st.sidebar.write("📝 To add members, **edit the `GROUP_MEMBERS` list in the code** and restart the script.")
 
 # User input for searching
@@ -36,10 +45,10 @@ if name:
         st.success("✅ Found your details!")
         for _, member in filtered_members.iterrows():
             st.write(f"**👤 Name:** {member['name']}")
-            st.write(f"**🚻 Gender:** {member['gender']}")
+            st.write(f"**👤 Gender:** {member['gender']}")
             st.write(f"**📚 Specialty:** {member['specialty']}")
             st.write(f"**📌 Group:** {member['group']}")
             st.write(f"**🔢 Group Number:** {member['group_number']}")
-            st.markdown("---")  
+            st.markdown("---")
     else:
         st.error("❌ No match found! Contact the admin to add your name.")
