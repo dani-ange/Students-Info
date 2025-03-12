@@ -51,4 +51,4 @@ if name:
             st.write(f"**🔢 Group Number:** {member['group_number']}")
             st.markdown("---")
     else:
-        st.error("❌ No match found! Contact the admin to add your name.")
+        st.error("❌ No match found! add  your name to the members lists in the script.")
